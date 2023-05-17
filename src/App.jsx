@@ -1,13 +1,21 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Cookies from 'js-cookie';
 import SignIn from './components/Login/index';
 import Signup from './components/Signup/index';
 import URLS from './constants/urls';
-import './App.css';
+import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './components/Dashboard';
+
+const authToken = Cookies.get('token');
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navigate to={authToken ? URLS.dashboard : URLS.login} replace />,
+  },
   {
     path: URLS.login,
     element: <SignIn />,
@@ -15,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: URLS.signup,
     element: <Signup />,
+  },
+  {
+    path: URLS.dashboard,
+    element: <Dashboard />,
   },
 ]);
 

@@ -10,18 +10,31 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import URLS from '../../constants/urls';
+import baseService from '../../apis/service';
+import USER_APIS from '../../apis/userapis';
+import RESPONSE_CODES from '../../constants/responseCodes';
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+      const data = new FormData(event.currentTarget);
+      const response = await baseService.post(USER_APIS.login, {
+        email: data.get('email'),
+        password: data.get('password'),
+      });
+      if (response.data.response_code === RESPONSE_CODES.ok) {
+        toast('Login Successfull');
+        Cookies.set('token', response.data.payload.auth_token);
+      }
+    } catch (err) {
+      toast('Something went wrong');
+    }
   };
 
   return (
@@ -42,7 +55,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -52,6 +65,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              type="email"
             />
             <TextField
               margin="normal"
@@ -68,9 +82,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href={URLS.signup} variant="body2">
-                  Don&apos;t have an account? Sign Up
-                </Link>
+                <Link to={URLS.signup}>Don&apos;t have an account? Sign Up</Link>
               </Grid>
             </Grid>
           </Box>

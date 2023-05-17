@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -11,13 +10,17 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
 import URLS from '../../constants/urls';
 import USER_APIS from '../../apis/userapis';
 import baseService from '../../apis/service';
+import RESPONSE_CODES from '../../constants/responseCodes';
 
 const theme = createTheme();
 
 function Signup() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -27,8 +30,11 @@ function Signup() {
         email: data.get('email'),
         password: data.get('password'),
       });
-      console.log(response);
-    } catch {
+      if (response.data.response_code === RESPONSE_CODES.ok) {
+        toast('Account created successfully');
+        navigate(URLS.login);
+      }
+    } catch (err) {
       toast('Something went wrong');
     }
   };
@@ -51,7 +57,7 @@ function Signup() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField margin="normal" required fullWidth id="fullname" label="Full Name" name="fullname" autoFocus />
             <TextField
               margin="normal"
@@ -61,6 +67,7 @@ function Signup() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              type="email"
             />
             <TextField
               margin="normal"
@@ -73,13 +80,11 @@ function Signup() {
               autoComplete="current-password"
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              Sign up
             </Button>
             <Grid container>
               <Grid item>
-                <Link href={URLS.login} variant="body2">
-                  Already have an account? Sign in
-                </Link>
+                <Link to={URLS.login}>Already have an account? Sign in</Link>
               </Grid>
             </Grid>
           </Box>
