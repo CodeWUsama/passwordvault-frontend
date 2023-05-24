@@ -20,6 +20,9 @@
     ],
     "rules": {
         "prettier/prettier": ["error"],
-        "jsx-props-no-spreading":"off"
+        "jsx-props-no-spreading":"off",
+        "react/prop-types": "off",
+        "import/no-cycle": "off",
+        "consistent-return": "off"
     }
 }

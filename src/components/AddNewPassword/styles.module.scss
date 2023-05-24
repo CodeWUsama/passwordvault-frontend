@@ -1,0 +1,31 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+.cont {
+  width: 100%;
+  max-width: 800px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.select {
+  margin-top: 18px !important;
+}
+
+.selectLabel {
+  background-color: white;
+  padding: 0px 5px;
+}
+
+.btnCont {
+  margin-top: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

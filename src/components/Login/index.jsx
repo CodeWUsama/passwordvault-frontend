@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import URLS from '../../constants/urls';
@@ -20,6 +20,8 @@ import RESPONSE_CODES from '../../constants/responseCodes';
 const theme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -30,7 +32,9 @@ export default function SignIn() {
       });
       if (response.data.response_code === RESPONSE_CODES.ok) {
         toast('Login Successfull');
+        Cookies.remove('token');
         Cookies.set('token', response.data.payload.auth_token);
+        navigate(URLS.dashboard);
       }
     } catch (err) {
       toast('Something went wrong');

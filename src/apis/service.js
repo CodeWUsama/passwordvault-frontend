@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import responseCodes from '../constants/responseCodes';
 
 const baseService = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
+  headers: { token: Cookies.get('token') },
 });
 
 baseService.interceptors.response.use(
