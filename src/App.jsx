@@ -49,8 +49,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    if (authToken) fetchCategories();
+  }, [authToken]);
 
   return (
     <div>
