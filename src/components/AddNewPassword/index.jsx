@@ -55,21 +55,26 @@ function AddNewPassword() {
           type="password"
           inputRef={confirmPasswordRef}
         />
-        <FormControl fullWidth className={styles.select}>
-          <InputLabel id="category-label" className={styles.selectLabel}>
-            Category
-          </InputLabel>
-          <Select
-            labelId="category-label"
-            value={category}
-            label="Age"
-            onChange={(event) => setCategory(event.target.value)}
-          >
-            {categories.map(({ id, title }) => (
-              <MenuItem value={id}>{title}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <div className={styles.catCont}>
+          <FormControl fullWidth className={styles.select}>
+            <InputLabel id="category-label" className={styles.selectLabel}>
+              Category
+            </InputLabel>
+            <Select
+              labelId="category-label"
+              value={category}
+              label="Age"
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              {categories.map(({ id, title }) => (
+                <MenuItem value={id}>{title}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button onClick={() => navigate(URLS.addNewCategory)} variant="contained">
+            Add New Category
+          </Button>
+        </div>
         <div className={styles.btnCont}>
           <Button variant="contained" onClick={handleAddPassword}>
             Add Password

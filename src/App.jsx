@@ -12,6 +12,7 @@ import ProtectedRoute from './helpers/ProtectedRoute';
 import AddNewPassword from './components/AddNewPassword';
 import baseService from './apis/service';
 import CATEGORIES_APIS from './apis/categories';
+import AddNewCategory from './components/AddNewCategory';
 
 export const CategoriesContext = createContext();
 const authToken = Cookies.get('token');
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: URLS.addNewPassword,
     element: <ProtectedRoute element={AddNewPassword} />,
+  },
+  {
+    path: URLS.addNewCategory,
+    element: <ProtectedRoute element={AddNewCategory} />,
   },
 ]);
 
