@@ -10,7 +10,7 @@ function Dashboard() {
 
   const onLogout = useCallback(() => {
     Cookies.remove('token');
-    navigate(URLS.login);
+    window.open(URLS.login, '_self');
   }, []);
 
   return (

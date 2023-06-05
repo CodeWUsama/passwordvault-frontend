@@ -15,36 +15,36 @@ import CATEGORIES_APIS from './apis/categories';
 import AddNewCategory from './components/AddNewCategory';
 
 export const CategoriesContext = createContext();
-const authToken = Cookies.get('token');
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Navigate to={authToken ? URLS.dashboard : URLS.login} replace />,
-  },
-  {
-    path: URLS.login,
-    element: <SignIn />,
-  },
-  {
-    path: URLS.signup,
-    element: <Signup />,
-  },
-  {
-    path: URLS.dashboard,
-    element: <ProtectedRoute element={Dashboard} />,
-  },
-  {
-    path: URLS.addNewPassword,
-    element: <ProtectedRoute element={AddNewPassword} />,
-  },
-  {
-    path: URLS.addNewCategory,
-    element: <ProtectedRoute element={AddNewCategory} />,
-  },
-]);
-
 function App() {
+  const authToken = Cookies.get('token');
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Navigate to={authToken ? URLS.dashboard : URLS.login} replace />,
+    },
+    {
+      path: URLS.login,
+      element: <SignIn />,
+    },
+    {
+      path: URLS.signup,
+      element: <Signup />,
+    },
+    {
+      path: URLS.dashboard,
+      element: <ProtectedRoute element={Dashboard} />,
+    },
+    {
+      path: URLS.addNewPassword,
+      element: <ProtectedRoute element={AddNewPassword} />,
+    },
+    {
+      path: URLS.addNewCategory,
+      element: <ProtectedRoute element={AddNewCategory} />,
+    },
+  ]);
+
   const [categories, setCategories] = useState([]);
   const categoriesContextObj = useMemo(() => ({ categories, setCategories }), [categories]);
 

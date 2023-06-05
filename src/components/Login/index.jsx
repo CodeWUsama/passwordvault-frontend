@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,10 +17,16 @@ import baseService from '../../apis/service';
 import USER_APIS from '../../apis/userapis';
 import RESPONSE_CODES from '../../constants/responseCodes';
 
+const authToken = Cookies.get('token');
+
 const theme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authToken) return navigate(URLS.dashboard);
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,9 +38,8 @@ export default function SignIn() {
       });
       if (response.data.response_code === RESPONSE_CODES.ok) {
         toast('Login Successfull');
-        Cookies.remove('token');
         Cookies.set('token', response.data.payload.auth_token);
-        navigate(URLS.dashboard);
+        window.open(URLS.dashboard, '_self');
       }
     } catch (err) {
       toast('Something went wrong');
