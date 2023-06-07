@@ -1,14 +1,17 @@
 import { Button, TextField } from '@mui/material';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import baseService from '../../apis/service';
 import RESPONSE_CODES from '../../constants/responseCodes';
 import CATEGORIES_APIS from '../../apis/categories';
+import { CategoriesContext } from '../../App';
 
 function AddNewCategory() {
   const navigate = useNavigate();
+  const { categories, setCategories } = useContext(CategoriesContext);
+
   const titleRef = useRef();
 
   const handleAddPassword = useCallback(async () => {
@@ -19,7 +22,9 @@ function AddNewCategory() {
         title,
       });
       if (response.data.response_code === RESPONSE_CODES.ok) {
-        return toast('Category created successfully');
+        toast('Category created successfully');
+        setCategories([...categories, response.data.payload.category]);
+        navigate(-1);
       }
     } catch (err) {
       return toast('Something went wrong');

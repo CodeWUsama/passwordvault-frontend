@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div>
-      <CategoriesContext.Provider value={categoriesContextObj} setValue={setCategories}>
+      <CategoriesContext.Provider value={categoriesContextObj}>
         <RouterProvider router={router} />
         <ToastContainer />
       </CategoriesContext.Provider>

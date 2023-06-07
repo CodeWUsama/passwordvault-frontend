@@ -1,12 +1,14 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import URLS from '../../constants/urls';
+import { CategoriesContext } from '../../App';
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { categories } = useContext(CategoriesContext);
 
   const onLogout = useCallback(() => {
     Cookies.remove('token');
@@ -25,9 +27,17 @@ function Dashboard() {
         <Button onClick={() => navigate(URLS.addNewPassword)} variant="contained">
           Store New Password
         </Button>
-        <Button onClick={() => navigate(URLS.addNewCategory)} variant="contained">
-          Add New Category
-        </Button>
+      </div>
+      <div className={styles.cardsCont}>
+        {categories.map((category) => (
+          <div className={styles.card} key={category.id}>
+            <p>{category.title}</p>
+            <Link to="/">View</Link>
+          </div>
+        ))}
+        <div className={styles.card} onClick={() => navigate(URLS.addNewCategory)} role="presentation">
+          <p className={styles.action}>+ Add new category</p>
+        </div>
       </div>
     </div>
   );
