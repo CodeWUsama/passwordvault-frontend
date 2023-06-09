@@ -1,0 +1,41 @@
+.card {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 300px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.passCont {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  svg {
+    cursor: pointer;
+    height: 20px;
+  }
+  p {
+    text-align: center;
+  }
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  svg {
+    cursor: pointer;
+  }
+}

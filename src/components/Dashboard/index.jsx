@@ -32,7 +32,7 @@ function Dashboard() {
         {categories.map((category) => (
           <div className={styles.card} key={category.id}>
             <p>{category.title}</p>
-            <Link to="/">View</Link>
+            <Link to={`${URLS.expandCategory}/${category.id}`}>View</Link>
           </div>
         ))}
         <div className={styles.card} onClick={() => navigate(URLS.addNewCategory)} role="presentation">

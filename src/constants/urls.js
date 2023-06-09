@@ -4,6 +4,7 @@ const URLS = {
   dashboard: '/dashboard',
   addNewPassword: '/add-password',
   addNewCategory: '/add-category',
+  expandCategory: '/category',
 };
 
 export default URLS;

@@ -13,6 +13,7 @@ import AddNewPassword from './components/AddNewPassword';
 import baseService from './apis/service';
 import CATEGORIES_APIS from './apis/categories';
 import AddNewCategory from './components/AddNewCategory';
+import ViewCategory from './components/ViewCategory';
 
 export const CategoriesContext = createContext();
 function App() {
@@ -42,6 +43,10 @@ function App() {
     {
       path: URLS.addNewCategory,
       element: <ProtectedRoute element={AddNewCategory} />,
+    },
+    {
+      path: `${URLS.expandCategory}/:id`,
+      element: <ProtectedRoute element={ViewCategory} />,
     },
   ]);
 
