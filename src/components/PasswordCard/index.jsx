@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { decrypt } from '../../helpers/base64helper';
 import styles from './styles.module.scss';
 
-function PasswordCard({ title, data, updatedAt }) {
+function PasswordCard({ title, data, updatedAt, onEdit }) {
   const decryptedPassword = decrypt(data);
   const [showPass, setShowPass] = useState(false);
 
@@ -14,7 +14,7 @@ function PasswordCard({ title, data, updatedAt }) {
     <div className={styles.card}>
       <div className={styles.head}>
         <p className={styles.title}>{title}</p>
-        <EditIcon />
+        <EditIcon onClick={onEdit} />
       </div>
       <div className={styles.passCont}>
         <p>{showPass ? decryptedPassword : '*'.repeat(decryptedPassword.length)}</p>
