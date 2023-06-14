@@ -29,6 +29,10 @@ function ViewCategory() {
     getPassword();
   }, [id]);
 
+  const onCloseModal = useCallback(() => {
+    setEditModal({ show: false });
+  });
+
   const handleUpdatePassword = useCallback(
     async (e) => {
       e.preventDefault();
@@ -40,6 +44,8 @@ function ViewCategory() {
           data: password,
         });
         if (response.data.response_code === RESPONSE_CODES.ok) {
+          getPassword();
+          onCloseModal();
           return toast('Password updated successfully');
         }
       } catch (err) {
@@ -54,11 +60,7 @@ function ViewCategory() {
       <Button variant="contained" onClick={() => navigate(-1)}>
         Back
       </Button>
-      <Modal
-        isOpen={editModal.show}
-        onClose={() => setEditModal({ show: false })}
-        title={`Edit password for ${editModal.title}`}
-      >
+      <Modal isOpen={editModal.show} onClose={onCloseModal} title={`Edit password for ${editModal.title}`}>
         <form onSubmit={handleUpdatePassword} className={styles.modalContent}>
           <TextField margin="normal" required fullWidth label="Password" type="password" inputRef={passwordRef} />
           <TextField
