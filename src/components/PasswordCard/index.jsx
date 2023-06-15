@@ -3,10 +3,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import moment from 'moment';
 import EditIcon from '@mui/icons-material/Edit';
+import { DeleteOutline } from '@mui/icons-material';
 import { decrypt } from '../../helpers/base64helper';
 import styles from './styles.module.scss';
 
-function PasswordCard({ title, data, updatedAt, onEdit }) {
+function PasswordCard({ title, data, updatedAt, onEdit, onDelete }) {
   const decryptedPassword = decrypt(data);
   const [showPass, setShowPass] = useState(false);
 
@@ -14,7 +15,10 @@ function PasswordCard({ title, data, updatedAt, onEdit }) {
     <div className={styles.card}>
       <div className={styles.head}>
         <p className={styles.title}>{title}</p>
-        <EditIcon onClick={onEdit} />
+        <div className={styles.actions}>
+          <EditIcon onClick={onEdit} />
+          <DeleteOutline onClick={onDelete} />
+        </div>
       </div>
       <div className={styles.passCont}>
         <p>{showPass ? decryptedPassword : '*'.repeat(decryptedPassword.length)}</p>

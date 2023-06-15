@@ -18,12 +18,12 @@ function ViewCategory() {
   const [passwords, setPasswords] = useState(null);
   const [editModal, setEditModal] = useState({ show: false, title: '', id: '' });
 
-  const getPassword = async () => {
+  const getPassword = useCallback(async () => {
     const response = await baseService.get(`${CATEGORIES_APIS.get}/${id}`);
     if (response.data.response_code === RESPONSE_CODES.ok) {
       setPasswords(response.data.payload);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getPassword();
@@ -54,6 +54,14 @@ function ViewCategory() {
     },
     [passwordRef, confirmPasswordRef, editModal]
   );
+
+  const onDelete = useCallback(async (passId) => {
+    const response = await baseService.delete(`${PASSWORD_APIS.delete}/${passId}`);
+    if (response.data.response_code === RESPONSE_CODES.ok) {
+      getPassword();
+      return toast('Password deleted successfully');
+    }
+  }, []);
 
   return (
     <div className={styles.root}>
@@ -86,6 +94,7 @@ function ViewCategory() {
             onEdit={() => {
               setEditModal({ show: true, title, id: passId });
             }}
+            onDelete={() => onDelete(passId)}
           />
         ))}
         {!passwords && <h3>Loading...</h3>}

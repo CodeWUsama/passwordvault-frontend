@@ -35,6 +35,11 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
   svg {
     cursor: pointer;
   }
